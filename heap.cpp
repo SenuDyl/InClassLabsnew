@@ -64,9 +64,7 @@ int main()
    int n = sizeof(heap_arr)/sizeof(heap_arr[0]);
    cout<<"Input array"<<endl;
    displayArray(heap_arr,n);
-  
    heapSort(heap_arr, n);
-  
    cout << "Sorted array"<<endl;
    displayArray(heap_arr, n);
    int newArr[8];
