@@ -8,7 +8,7 @@ using namespace std;
 
 const int Vertices = 6;
 
-void dijkstra(int graph[Vertices][Vertices], int source)
+float dijkstra(int graph[Vertices][Vertices], int source)
 {
     vector<int> distance(Vertices, INT_MAX); // Stores the shortest distances from the source
     vector<bool> visited(Vertices, false);   // Keeps track of visited vertices
@@ -49,14 +49,22 @@ void dijkstra(int graph[Vertices][Vertices], int source)
         }
     }
 
+    float sum = 0.0;
+    float min=INT_MAX;
+    vector<float> averages;
     // Print the shortest distances from the source
     cout << "Shortest distances from the source: " << source << endl;
-
-    for (int i = 0; i < Vertices; ++i)
-    {
+    //Calculate the toal distance
+    for (int i = 0; i < Vertices; ++i) {
         cout << source << "->" << i << " = " << distance[i] << " ";
+        sum += distance[i];
     }
+    //Calculate the average value
+    float average = static_cast<float>(sum) / 5.0;
+    cout << "Average: " << average << endl;
     cout << endl;
+    //Return the average value
+    return average;
 }
 
 int main()
@@ -68,10 +76,30 @@ int main()
                        {15, 0, 5, 0, 0, 0},
                        {5, 0, 0, 20, 0, 0}};
 
-    for (int i = 0; i <= 5; i++)
-    {
-        dijkstra(graph, i);
+    vector<float> averages;
+    float min=INT_MAX;
+    //Create an array including all the average values
+	for(int i=0;i<=5;i++){
+        float average=dijkstra(graph, i);
+        averages.push_back(average);
+    }
+    //Get all the minimum values
+    for(float avg:averages){
+        
+        if(avg<min){
+            min=avg;
+        }
+    }
+    cout<<"Minimum Average time: "<<min<<endl; //Print the minimum value of the average
+    //Print the cities with the minimum average value
+    cout<<"CITIES WITH SMALLEST AVERAGES ARE: ";
+    for(int i=0;i<=5;i++){
+        if(averages[i]==min){
+            cout<<i<<"  ";
+        }
+       
     }
 
-    return 0;
+	return 0;
+    
 }
